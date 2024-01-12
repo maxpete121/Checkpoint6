@@ -47,6 +47,10 @@
             let profileId = route.params.profileId
             await profileService.getProfileById(profileId)
         }
+
+        async function getPostsById(){
+            
+        }
       return {
         profile: computed(()=> AppState.activeProfile)
       }

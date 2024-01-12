@@ -1,6 +1,22 @@
 <template>
   <section class="container-fluid">
-    <div class="row">
+    <div class="row justify-content-center">
+      <div class="col-6 d-flex justify-content-center">
+        <button @click="pageChangeDown()" class="btn btn-outline-dark">
+          <i class="mdi mdi-arrow-left"></i>
+          Previous Page
+        </button>
+        <span class="d-flex ms-3 me-3">
+          <h3>Page:</h3>
+          <h3>{{ page }}</h3>
+        </span>
+        <button @click="pageChangeUp()" class="btn btn-outline-dark">
+          Next Page
+          <i class="mdi mdi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-center">
       <div></div>
       <div class="col-5">
         <div class="post-card mt-4">
@@ -40,12 +56,25 @@ import { AppState } from '../AppState';
 export default {
   setup() {
     const postData = ref({})
+    const page = computed(()=> AppState.currentPage)
     onMounted(() => {
       getPosts()
     })
 
+    async function pageChangeUp(){
+      await AppState.currentPage++
+      getPosts()
+    }
+
+    async function pageChangeDown(){
+      if(AppState.currentPage > 1){
+        await AppState.currentPage--
+        getPosts()
+      }
+    }
+
     async function getPosts(){
-      await postService.getPosts()
+      await postService.getPosts(page.value)
     }
 
     async function postPost(){
@@ -56,7 +85,10 @@ export default {
       posts: computed(()=> AppState.posts),
       account: computed(()=> AppState.account),
       postData,
-      postPost
+      postPost,
+      page,
+      pageChangeUp,
+      pageChangeDown,
     }
   }, components: {PostCard}
 }

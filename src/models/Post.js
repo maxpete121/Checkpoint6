@@ -9,5 +9,6 @@ export class Post{
         this.likeIds = data.likeIds
         this.creator = data.creator || 'none'
         this.likes = data.likes
+        this.id = data._id
     }
 }

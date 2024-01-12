@@ -13,6 +13,10 @@
         <div class="mt-1">
             <h6>{{ post.body }}</h6>
         </div>
+        <div>
+            <button class="btn btn-outline-dark me-3">Comment</button>
+            <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
+        </div>
     </div>
   </template>
   
@@ -22,12 +26,16 @@
   import { AuthService } from '../services/AuthService'
   import { RouterLink } from 'vue-router'
 import { Post } from '../models/Post'
+import { postService } from '../services/PostService'
   export default {
     props: {post: {type: Post, required: true}},
     setup() {
-
+        async function deletePost(postId){
+            await postService.deletePost(postId)
+        }
       return {
-        accountId: computed(()=> AppState.account)
+        accountId: computed(()=> AppState.account),
+        deletePost,
       }
     }, components: {RouterLink}
   }
