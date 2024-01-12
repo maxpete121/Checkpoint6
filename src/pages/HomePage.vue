@@ -3,7 +3,7 @@
     <div class="row">
       <div></div>
       <div class="col-6">
-        <div class="w-75" v-for="post in posts">
+        <div class="mt-4" v-for="post in posts">
           <PostCard :post="post"/>
         </div>
       </div>
