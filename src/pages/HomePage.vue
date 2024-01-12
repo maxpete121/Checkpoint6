@@ -1,8 +1,11 @@
 <template>
   <section class="container-fluid">
     <div class="row">
-      <div v-for="post in posts" class="col-4">
-        <PostCard/>
+      <div></div>
+      <div class="col-6">
+        <div class="w-75" v-for="post in posts">
+          <PostCard :post="post"/>
+        </div>
       </div>
     </div>
   </section>
@@ -11,12 +14,12 @@
 <script>
 import { postService } from '../services/PostService';
 import PostCard from '../components/PostCard.vue';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
 export default {
   setup() {
     onMounted(() => {
-
+      getPosts()
     })
 
     async function getPosts(){
