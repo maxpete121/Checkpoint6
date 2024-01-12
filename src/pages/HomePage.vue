@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-6 d-flex justify-content-center">
+      <div class="col-6 d-flex justify-content-center mt-3">
         <button @click="pageChangeDown()" class="btn btn-outline-dark">
           <i class="mdi mdi-arrow-left"></i>
           Previous Page
@@ -59,8 +59,13 @@ export default {
     const page = computed(()=> AppState.currentPage)
     onMounted(() => {
       getPosts()
+      clearActive()
     })
 
+    function clearActive(){
+      AppState.activeProfile = {}
+      AppState.profilePosts = []
+    }
     async function pageChangeUp(){
       await AppState.currentPage++
       getPosts()

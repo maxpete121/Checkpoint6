@@ -27,9 +27,7 @@ class PostService{
         AppState.posts.splice(postIndex, 1)
     }
 
-    async getPostsById(){
 
-    }
 
 }
 

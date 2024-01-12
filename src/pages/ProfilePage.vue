@@ -27,8 +27,15 @@
         </div>
   
     </section>
+    <section class="row justify-content-center mt-3">
+        <div class="col-3 text-center">
+            <h3>Recent Posts</h3>
+        </div>
+    </section>
     <section class="row">
-        <div class="col-3"></div>
+        <div class="mt-4 col-4" v-for="post in posts">
+          <PostCard :post="post"/>
+        </div>
     </section>
   </template>
   
@@ -37,6 +44,7 @@
   import { AppState } from '../AppState';
   import {profileService} from '../services/ProfileService'
   import { useRoute } from 'vue-router';
+  import PostCard from '../components/PostCard.vue';
   export default {
     setup() {
         onMounted(()=>{
@@ -46,15 +54,17 @@
         async function getProfileById(){
             let profileId = route.params.profileId
             await profileService.getProfileById(profileId)
+            getPostsById(profileId)
         }
 
-        async function getPostsById(){
-            
+        async function getPostsById(profileId){
+            await profileService.getPostsById(profileId)
         }
       return {
-        profile: computed(()=> AppState.activeProfile)
+        profile: computed(()=> AppState.activeProfile),
+        posts: computed(()=> AppState.profilePosts)
       }
-    }
+    }, components: {PostCard}
   }
   </script>
   
