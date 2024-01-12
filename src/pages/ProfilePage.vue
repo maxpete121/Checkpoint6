@@ -8,14 +8,18 @@
         </div>
     </section>
     <section class="row justify-content-center">
-        <div v-if="profile.github" class="col-5">
-            <span class="d-flex">
-                <h4 class="me-2">GitHub:</h4>
-                <h4>{{ profile.github }}</h4>
-            </span>
+        <div v-if="profile.github" class="col-5 card p-2">
             <span class="d-flex">
                 <h4 class="me-2">Class:</h4>
-                <h4>{{ profile.class }}</h4>
+                <h4 class="text-success">{{ profile.class }}</h4>
+            </span>
+            <span class="d-flex">
+                <h4 class="me-2">GitHub:</h4>
+                <h4 class="text-success">{{ profile.github }}</h4>
+            </span>
+            <span class="mt-4">
+                <h4>Bio:</h4>
+                <p>{{ profile.bio }}</p>
             </span>
         </div>
         <div class="col-4">

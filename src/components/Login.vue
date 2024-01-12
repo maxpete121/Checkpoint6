@@ -18,6 +18,9 @@
                 Manage Account
               </div>
             </router-link>
+            <router-link v-if="account.id" :to="{ name: 'Profile', params: { profileId: account.id } }">
+              <div class="list-group-item dropdown-item list-group-item-action">Your Profile</div>
+            </router-link>
             <div class="list-group-item dropdown-item list-group-item-action text-danger selectable" @click="logout">
               <i class="mdi mdi-logout"></i>
               logout
@@ -36,6 +39,7 @@ import { AuthService } from '../services/AuthService'
 export default {
   setup() {
     return {
+      post: computed(()=> AppState.posts),
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
       async login() {

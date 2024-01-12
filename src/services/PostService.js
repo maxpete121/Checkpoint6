@@ -13,6 +13,13 @@ class PostService{
         let allPosts = response.data.posts.map(post => new Post(post))
         AppState.posts = allPosts
     }
+
+    async postPost(postData){
+        let response = await api.post('api/posts', postData)
+        let newPost = new Post(response.data)
+        AppState.posts.push(newPost)
+        console.log(response)
+    }
 }
 
 
