@@ -9,7 +9,7 @@ import { api } from "./AxiosService";
 class PostService{
     async getPosts(page){
         let response = await api.get(`api/posts?page=${page}`)
-        console.log(page)
+        // console.log(page)
         let allPosts = response.data.posts.map(post => new Post(post))
         AppState.posts = allPosts
     }
@@ -18,7 +18,7 @@ class PostService{
         let response = await api.post('api/posts', postData)
         let newPost = new Post(response.data)
         AppState.posts.unshift(newPost)
-        console.log(response)
+        // console.log(response)
     }
 
     async deletePost(postId){
@@ -27,7 +27,11 @@ class PostService{
         AppState.posts.splice(postIndex, 1)
     }
 
-
+    async searchPost(searched){
+        let response = await api.get(`api/posts?query=${searched}`)
+        let searchedPosts = response.data.posts.map(post => new Post(post))
+        AppState.posts = searchedPosts
+    }
 
 }
 

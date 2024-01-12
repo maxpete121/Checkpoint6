@@ -20,6 +20,15 @@ class ProfileService{
         let profilePosts = await response.data.posts.map(post => new Post(post))
         AppState.profilePosts = profilePosts
     }
+
+    async searchProfilePost(searched){
+        let response = await api.get(`api/profiles?query=${searched}`)
+        console.log('profiles',response)
+        let profiles = response.data.map(profile => new Profile(profile))
+        AppState.searchedProfile = profiles
+        let empty = []
+        AppState.posts = empty
+    }
 }
 
 export const profileService = new ProfileService()

@@ -1,5 +1,6 @@
 <template>
   <section class="container-fluid">
+      <SearchBar/>
     <div class="row justify-content-center">
       <div class="col-6 d-flex justify-content-center mt-3">
         <button @click="pageChangeDown()" class="btn btn-outline-dark">
@@ -43,6 +44,9 @@
         <div class="mt-4" v-for="post in posts">
           <PostCard :post="post"/>
         </div>
+        <div v-if="profiles != []" v-for="profile in profiles">
+          <ProfileCard :profile="profile"/>
+        </div>
       </div>
     </div>
   </section>
@@ -51,6 +55,8 @@
 <script>
 import { postService } from '../services/PostService';
 import PostCard from '../components/PostCard.vue';
+import SearchBar from '../components/SearchBar.vue';
+import ProfileCard from '../components/ProfileCard.vue';
 import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState';
 export default {
@@ -89,13 +95,14 @@ export default {
     return {
       posts: computed(()=> AppState.posts),
       account: computed(()=> AppState.account),
+      profiles: computed(()=> AppState.searchedProfile),
       postData,
       postPost,
       page,
       pageChangeUp,
       pageChangeDown,
     }
-  }, components: {PostCard}
+  }, components: {PostCard, SearchBar, ProfileCard}
 }
 </script>
 

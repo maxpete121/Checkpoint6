@@ -16,5 +16,7 @@ export const AppState = reactive({
 
   profilePosts: [],
 
-  currentPage: 1
+  currentPage: 1,
+/**@type {Profile[]} */
+  searchedProfile: []
 })
