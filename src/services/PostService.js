@@ -1,3 +1,4 @@
+import { all } from "axios";
 import { AppState } from "../AppState";
 import { Post } from "../models/Post";
 import { api } from "./AxiosService";
@@ -9,9 +10,24 @@ import { api } from "./AxiosService";
 class PostService{
     async getPosts(page){
         let response = await api.get(`api/posts?page=${page}`)
-        console.log(response)
         let allPosts = response.data.posts.map(post => new Post(post))
+        console.log(allPosts)
         AppState.posts = allPosts
+    }
+    
+    async checkPosts(accountId, allPosts){
+        console.log(accountId, allPosts)
+        for(let i = 0; allPosts.length > i; i++){
+            let post = allPosts[i].likeIds
+            for(let x = 0; post.length > x; x++){
+                if(AppState.posts[i].likeIds[x] == accountId){
+                    allPosts[i].liked = true
+                }else{
+                    allPosts[i].liked = false
+                }
+                AppState.posts = allPosts
+            }
+        }
     }
 
     async postPost(postData){
@@ -33,12 +49,25 @@ class PostService{
         AppState.posts = searchedPosts
     }
 
-    async likePost(postId){
+    async likePost(postId, accountId){
         let response = await api.post(`api/posts/${postId}/like`)
-        console.log(response)
-        let newPost = new Post(response.data)
+        let newPost = await new Post(response.data)
+        for(let i = 0; newPost.likeIds.length > i; i++){
+            console.log(i)
+            if(newPost.likeIds[i] == accountId){
+                newPost.liked = true
+            }else{
+                newPost.liked = false
+            }
+        }
+        console.log(newPost)
+        this.update(postId, newPost)
+    }
+    
+    update(postId, newPost){
         AppState.posts = AppState.posts.map(post => post.id !== postId ? post : newPost)
     }
+
 
 }
 

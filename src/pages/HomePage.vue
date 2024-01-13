@@ -1,6 +1,6 @@
 <template>
   <section class="container-fluid section-main">
-      <SearchBar v-if="account.id"/>
+      <SearchBar v-if="accountVal.id"/>
     <div class="row justify-content-center">
       <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
         <span>
@@ -24,10 +24,10 @@
     <div class="row justify-content-center">
       <div></div>
       <div class="col-5">
-        <div v-if="account.id" class="post-card mt-4">
+        <div v-if="accountVal.id" class="post-card mt-4">
           <span class="d-flex align-items-center mb-2 justify-content-center">
-            <h3>{{ account.name }}</h3>
-            <img class="profile-pic rounded-circle ms-2" :src="account.picture" alt="">
+            <h3>{{ accountVal.name }}</h3>
+            <img class="profile-pic rounded-circle ms-2" :src="accountVal.picture" alt="">
           </span>
           <span class="text-center">
             <h5>Make a new Post!</h5>
@@ -61,15 +61,15 @@ import { postService } from '../services/PostService';
 import PostCard from '../components/PostCard.vue';
 import SearchBar from '../components/SearchBar.vue';
 import ProfileCard from '../components/ProfileCard.vue';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { AppState } from '../AppState';
 export default {
   setup() {
     const postData = ref({})
     const page = computed(()=> AppState.currentPage)
     onMounted(() => {
-      getPosts()
       clearActive()
+      getPosts()
     })
 
     function clearActive(){
@@ -98,7 +98,7 @@ export default {
 
     return {
       posts: computed(()=> AppState.posts),
-      account: computed(()=> AppState.account),
+      accountVal: computed(()=> AppState.account),
       profiles: computed(()=> AppState.searchedProfile),
       postData,
       postPost,

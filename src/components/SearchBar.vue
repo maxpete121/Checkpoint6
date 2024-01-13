@@ -18,7 +18,7 @@
   </template>
   
   <script>
-  import { computed, ref } from 'vue'
+  import { computed, ref, onMounted } from 'vue'
   import { AppState } from '../AppState'
   import { AuthService } from '../services/AuthService'
 import { Post } from '../models/Post'
@@ -26,6 +26,11 @@ import {postService} from '../services/PostService.js'
 import {profileService} from '../services/ProfileService'
   export default {
     setup() {
+      const posts = computed(()=> AppState.posts)
+      onMounted(()=>{
+        console.log(AppState.account)
+        checkPosts()
+      })
         const searched = ref('')
         const filter = ref('')
         async function searchPost(){
@@ -34,6 +39,9 @@ import {profileService} from '../services/ProfileService'
             }else if(filter.value == 'Profile'){
                 await profileService.searchProfilePost(searched.value)
             }
+        }
+        async function checkPosts(){
+          postService.checkPosts(AppState.account.id, posts.value)
         }
       return {
         searchPost,

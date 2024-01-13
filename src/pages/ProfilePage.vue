@@ -17,6 +17,10 @@
                 <h4 class="me-2">GitHub:</h4>
                 <h4 class="text-success">{{ profile.github }}</h4>
             </span>
+            <span class="d-flex">
+                <h4 class="me-2">Linkedin:</h4>
+                <h4 class="text-success">{{ profile.linkedin }}</h4>
+            </span>
             <span class="mt-4">
                 <h4>Bio:</h4>
                 <p>{{ profile.bio }}</p>

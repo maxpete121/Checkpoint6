@@ -1,5 +1,6 @@
 <template>
     <div class="post-card">
+        <h1>{{ post.liked }}</h1>
         <div class="d-flex align-items-center mb-2 justify-content-center">
             <h4 class="me-2">Posted By:</h4>
             <h4 class="me-3">{{ post.creator.name }}</h4>
@@ -15,7 +16,8 @@
         </div>
         <div class="d-flex align-items-center justify-content-between">
             <span class="d-flex me-4">
-                <h4 v-if="accountId.id" @click="likePost(post.id)" type="button">❤</h4>
+                <h4 v-if="accountId.id &&  post.liked == true" @click="likePost(post.id, accountId.id)" type="button">💛</h4>
+                <h4 v-else-if="accountId.id &&  post.liked == false" @click="likePost(post.id, accountId.id)" type="button">❤</h4>
                 <h4 v-else>❤</h4>
                 <h5>{{ post.likes.length }}</h5>
             </span>
@@ -37,11 +39,12 @@ import { postService } from '../services/PostService'
   export default {
     props: {post: {type: Post, required: true}},
     setup(props) {
+        let accountIds = computed(()=>AppState.account)
         async function deletePost(postId){
             await postService.deletePost(postId)
         }
-        async function likePost(postId){
-            await postService.likePost(postId)
+        async function likePost(postId, accountId){
+            await postService.likePost(postId, accountId)
         }
       return {
         accountId: computed(()=> AppState.account),
