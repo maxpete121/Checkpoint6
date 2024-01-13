@@ -29,6 +29,10 @@ class ProfileService{
         let empty = []
         AppState.posts = empty
     }
+
+    async updateProfile(profileData){
+        let response = await api.put('/account', profileData)
+    }
 }
 
 export const profileService = new ProfileService()

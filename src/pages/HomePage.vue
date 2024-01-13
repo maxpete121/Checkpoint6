@@ -2,7 +2,7 @@
   <section class="container-fluid section-main">
       <SearchBar v-if="account.id"/>
     <div class="row justify-content-center">
-      <div class="col-6 justify-content-center mt-3 d-flex page-card">
+      <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
         <span>
           <button @click="pageChangeDown()" class="btn btn-outline-dark">
             <i class="mdi mdi-arrow-left"></i>
@@ -150,5 +150,6 @@ export default {
 }
 .page-card{
   background-color: white;
+  border-radius: 15px;
 }
 </style>

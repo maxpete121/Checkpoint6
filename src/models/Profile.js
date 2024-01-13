@@ -12,5 +12,6 @@ export class Profile {
       this.github = data.github
       this.coverImg = data.coverImg
       this.class = data.class
+      this.linkedin = data.linkedin
     }
   }
