@@ -1,6 +1,5 @@
 <template>
     <div class="post-card">
-        <h1>{{ post.liked }}</h1>
         <div class="d-flex align-items-center mb-2 justify-content-center">
             <h4 class="me-2">Posted By:</h4>
             <h4 class="me-3">{{ post.creator.name }}</h4>
