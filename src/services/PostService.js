@@ -9,7 +9,7 @@ import { api } from "./AxiosService";
 class PostService{
     async getPosts(page){
         let response = await api.get(`api/posts?page=${page}`)
-        // console.log(page)
+        console.log(response)
         let allPosts = response.data.posts.map(post => new Post(post))
         AppState.posts = allPosts
     }
@@ -31,6 +31,13 @@ class PostService{
         let response = await api.get(`api/posts?query=${searched}`)
         let searchedPosts = response.data.posts.map(post => new Post(post))
         AppState.posts = searchedPosts
+    }
+
+    async likePost(postId){
+        let response = await api.post(`api/posts/${postId}/like`)
+        console.log(response)
+        let newPost = new Post(response.data)
+        AppState.posts = AppState.posts.map(post => post.id !== postId ? post : newPost)
     }
 
 }

@@ -27,14 +27,14 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
+import { AppState } from '../AppState';
 export default {
   setup() {
 
     const theme = ref(loadState('theme') || 'light')
-
     onMounted(() => {
       document.documentElement.setAttribute('data-bs-theme', theme.value)
     })

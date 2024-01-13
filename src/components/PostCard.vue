@@ -13,15 +13,21 @@
         <div class="mt-1">
             <h6>{{ post.body }}</h6>
         </div>
-        <div>
-            <button class="btn btn-outline-dark me-3">Comment</button>
-            <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
+        <div class="d-flex align-items-center justify-content-between">
+            <span class="d-flex me-4">
+                <h4 @click="likePost(post.id)" type="button">❤</h4>
+                <h5>{{ post.likes.length }}</h5>
+            </span>
+            <span>
+                <button class="btn btn-outline-dark me-3">Comment</button>
+                <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
+            </span>
         </div>
     </div>
   </template>
   
   <script>
-  import { computed, onMounted } from 'vue'
+  import { computed, onMounted, watch } from 'vue'
   import { AppState } from '../AppState'
   import { AuthService } from '../services/AuthService'
   import { RouterLink } from 'vue-router'
@@ -29,13 +35,17 @@ import { Post } from '../models/Post'
 import { postService } from '../services/PostService'
   export default {
     props: {post: {type: Post, required: true}},
-    setup() {
+    setup(props) {
         async function deletePost(postId){
             await postService.deletePost(postId)
+        }
+        async function likePost(postId){
+            await postService.likePost(postId)
         }
       return {
         accountId: computed(()=> AppState.account),
         deletePost,
+        likePost,
       }
     }, components: {RouterLink}
   }
