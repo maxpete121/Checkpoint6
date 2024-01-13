@@ -15,11 +15,12 @@
         </div>
         <div class="d-flex align-items-center justify-content-between">
             <span class="d-flex me-4">
-                <h4 @click="likePost(post.id)" type="button">❤</h4>
+                <h4 v-if="accountId.id" @click="likePost(post.id)" type="button">❤</h4>
+                <h4 v-else>❤</h4>
                 <h5>{{ post.likes.length }}</h5>
             </span>
             <span>
-                <button class="btn btn-outline-dark me-3">Comment</button>
+                <button v-if="accountId.id" class="btn btn-outline-dark me-3">Comment</button>
                 <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
             </span>
         </div>
@@ -53,7 +54,8 @@ import { postService } from '../services/PostService'
   
   <style scoped>
 .post-card{
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.788);
+    color: white;
     border-radius: 20px;
     padding: 15px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.267);

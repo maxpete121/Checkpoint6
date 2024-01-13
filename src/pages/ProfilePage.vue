@@ -32,7 +32,7 @@
             <h3>Recent Posts</h3>
         </div>
     </section>
-    <section class="row">
+    <section class="row p-3">
         <div class="mt-4 col-4" v-for="post in posts">
           <PostCard :post="post"/>
         </div>

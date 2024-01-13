@@ -1,26 +1,30 @@
 <template>
-  <section class="container-fluid">
-      <SearchBar/>
+  <section class="container-fluid section-main">
+      <SearchBar v-if="account.id"/>
     <div class="row justify-content-center">
-      <div class="col-6 d-flex justify-content-center mt-3">
-        <button @click="pageChangeDown()" class="btn btn-outline-dark">
-          <i class="mdi mdi-arrow-left"></i>
-          Previous Page
-        </button>
+      <div class="col-6 justify-content-center mt-3 d-flex page-card">
+        <span>
+          <button @click="pageChangeDown()" class="btn btn-outline-dark">
+            <i class="mdi mdi-arrow-left"></i>
+            Previous Page
+          </button>
+        </span>
         <span class="d-flex ms-3 me-3">
           <h3>Page:</h3>
           <h3>{{ page }}</h3>
         </span>
-        <button @click="pageChangeUp()" class="btn btn-outline-dark">
-          Next Page
-          <i class="mdi mdi-arrow-right"></i>
-        </button>
+        <span>
+          <button @click="pageChangeUp()" class="btn btn-outline-dark">
+            Next Page
+            <i class="mdi mdi-arrow-right"></i>
+          </button>
+        </span>
       </div>
     </div>
     <div class="row justify-content-center">
       <div></div>
       <div class="col-5">
-        <div class="post-card mt-4">
+        <div v-if="account.id" class="post-card mt-4">
           <span class="d-flex align-items-center mb-2 justify-content-center">
             <h3>{{ account.name }}</h3>
             <img class="profile-pic rounded-circle ms-2" :src="account.picture" alt="">
@@ -107,6 +111,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.section-main{
+  background-image: url(https://static.vecteezy.com/system/resources/previews/008/791/710/original/geometric-seamless-patterns-background-design-abstract-line-art-pattern-for-wallpaper-free-vector.jpg);
+  background-position: center;
+}
 .home {
   display: grid;
   height: 80vh;
@@ -129,6 +138,7 @@ export default {
 
 .post-card{
     background-color: white;
+    color: black;
     border-radius: 20px;
     padding: 15px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.267);
@@ -137,5 +147,8 @@ export default {
 .profile-pic{
     height: 50px;
     width: 50px;
+}
+.page-card{
+  background-color: white;
 }
 </style>
