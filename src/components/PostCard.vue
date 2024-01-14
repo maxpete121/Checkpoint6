@@ -1,7 +1,6 @@
 <template>
     <div class="post-card">
         <div class="d-flex align-items-center mb-2 justify-content-center">
-            <h4 class="me-2">Posted By:</h4>
             <h4 class="me-3">{{ post.creator.name }}</h4>
             <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
                 <img class="rounded-circle profile-pic" :src="post.creator.picture" alt="">
@@ -25,6 +24,13 @@
                 <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
             </span>
         </div>
+        <div class="d-flex">
+            <p class="me-2">Posted on:</p>
+            <p class="me-4">{{ date }}</p>
+            <p class="me-2">At:</p>
+            <p>{{ time }}</p>
+            <p class="">PM</p>
+        </div>
     </div>
   </template>
   
@@ -39,6 +45,10 @@ import { postService } from '../services/PostService'
     props: {post: {type: Post, required: true}},
     setup(props) {
         let accountIds = computed(()=>AppState.account)
+        let postDate = props.post
+        let date = postDate.createdAt.toLocaleDateString()
+        let hours = postDate.createdAt.toLocaleTimeString()
+        let time = hours.slice(0,4)
         async function deletePost(postId){
             await postService.deletePost(postId)
         }
@@ -49,6 +59,8 @@ import { postService } from '../services/PostService'
         accountId: computed(()=> AppState.account),
         deletePost,
         likePost,
+        date,
+        time
       }
     }, components: {RouterLink}
   }
@@ -56,8 +68,7 @@ import { postService } from '../services/PostService'
   
   <style scoped>
 .post-card{
-    background-color: rgba(0, 0, 0, 0.788);
-    color: white;
+    background-color: white;
     border-radius: 20px;
     padding: 15px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.267);

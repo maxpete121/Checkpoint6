@@ -1,6 +1,6 @@
 <template>
     <div class="row justify-content-center">
-        <form @submit.prevent="searchPost()" class="col-4 mt-2 text-center  bg-light p-3 rounded-3" action="">
+        <form @submit.prevent="searchPost()" class="col-4 mt-2 text-center p-3 rounded-3" action="">
                 <h5>Search Posts</h5>
                 <span class="d-flex justify-content-center mb-1">
                     <h6 class="me-2">Filter</h6>

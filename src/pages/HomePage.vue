@@ -4,9 +4,9 @@
     <div class="row justify-content-center">
       <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
         <span>
-          <button @click="pageChangeDown()" class="btn btn-outline-dark">
+          <button @click="pageChangeDown()" class="btn btn-outline-dark shadow">
             <i class="mdi mdi-arrow-left"></i>
-            Previous Page
+            Newer Posts
           </button>
         </span>
         <span class="d-flex ms-3 me-3">
@@ -14,8 +14,8 @@
           <h3>{{ page }}</h3>
         </span>
         <span>
-          <button @click="pageChangeUp()" class="btn btn-outline-dark">
-            Next Page
+          <button @click="pageChangeUp()" class="btn btn-outline-dark shadow">
+            Older Posts
             <i class="mdi mdi-arrow-right"></i>
           </button>
         </span>
@@ -67,6 +67,8 @@ export default {
   setup() {
     const postData = ref({})
     const page = computed(()=> AppState.currentPage)
+    const post = computed(()=> AppState.posts)
+    const account = computed(()=> AppState.account)
     onMounted(() => {
       clearActive()
       getPosts()
@@ -78,13 +80,19 @@ export default {
     }
     async function pageChangeUp(){
       await AppState.currentPage++
-      getPosts()
+      await getPosts()
+      if(account.value.id){
+        await postService.checkPosts(AppState.account.id, post.value)
+      }
     }
 
     async function pageChangeDown(){
       if(AppState.currentPage > 1){
         await AppState.currentPage--
-        getPosts()
+        await getPosts()
+        if(account.value.id){
+        await postService.checkPosts(AppState.account.id, post.value)
+      }
       }
     }
 
@@ -94,6 +102,7 @@ export default {
 
     async function postPost(){
       await postService.postPost(postData.value)
+      await postService.checkPosts(AppState.account.id, post.value)
     }
 
     return {
@@ -113,8 +122,7 @@ export default {
 <style scoped lang="scss">
 
 .section-main{
-  background-image: url(https://static.vecteezy.com/system/resources/previews/008/791/710/original/geometric-seamless-patterns-background-design-abstract-line-art-pattern-for-wallpaper-free-vector.jpg);
-  background-position: center;
+  background-color: white;
 }
 .home {
   display: grid;
@@ -141,7 +149,7 @@ export default {
     color: black;
     border-radius: 20px;
     padding: 15px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.267);
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.267);
     outline: thin black solid;
 }
 .profile-pic{

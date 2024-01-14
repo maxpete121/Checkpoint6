@@ -9,13 +9,13 @@
       <div class="row text-center mt-2 mb-2">
         <h3>Update your profile</h3>
       </div>
-      <form @submit.prevent="" action="">
+      <form @submit.prevent="updateProfile()" action="">
         <div class="row justify-content-center">
           <div class="col-2">
             <span class="d-flex justify-content-center">
               <h4 class="me-2">Name:</h4>
             </span>
-            <input v-model="profileUpdate.name"  class="form-control" type="text">
+            <input v-model="profileUpdate.name" required  class="form-control" type="text">
           </div>
         </div>
         <div class="row justify-content-center">
@@ -69,6 +69,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { AppState } from '../AppState';
+import { profileService } from '../services/ProfileService';
 export default {
   setup() {
     const profileUpdate = ref({
@@ -78,12 +79,13 @@ export default {
       bio: AppState.activeProfile.bio
     })
     async function updateProfile(){
-      
+      await profileService.updateProfile(profileUpdate.value)
     }
     return {
       account: computed(() => AppState.account),
       profile: computed(()=> AppState.activeProfile),
-      profileUpdate
+      profileUpdate,
+      updateProfile
     }
   }
 }

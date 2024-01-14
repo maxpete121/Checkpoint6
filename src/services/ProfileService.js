@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { Account } from "../models/Account"
 import { Post } from "../models/Post"
 import { Profile } from "../models/Profile"
 import { api } from "./AxiosService"
@@ -32,6 +33,9 @@ class ProfileService{
 
     async updateProfile(profileData){
         let response = await api.put('/account', profileData)
+        console.log(response)
+        let newAccount = new Account(response.data)
+        AppState.account = newAccount
     }
 }
 

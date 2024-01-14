@@ -13,6 +13,8 @@ export class Post{
         this.likes = data.likes
         this.id = data._id
         this.liked = liked || false
+        this.createdAt = new Date(data.createdAt)
+        this.updatedAt = data.updatedAt
     }
 
 }
