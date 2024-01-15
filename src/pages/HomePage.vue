@@ -70,6 +70,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { AppState } from '../AppState';
 import { adsService } from '../services/AdsService';
 import PluginCard from '../components/PluginCard.vue';
+import Pop from '../utils/Pop';
 export default {
   setup() {
     const postData = ref({})
@@ -77,6 +78,7 @@ export default {
     const post = computed(()=> AppState.posts)
     const account = computed(()=> AppState.account)
     onMounted(() => {
+      AppState.currentPage = 1
       clearActive()
       getPosts()
     })
@@ -104,8 +106,12 @@ export default {
     }
 
     async function getPosts(){
-      await postService.getPosts(page.value)
-      await adsService.getAds()
+      try {
+        await postService.getPosts(page.value)
+        await adsService.getAds()
+      } catch (error) {
+        Pop.error('Post data ERROR')
+      }
     }
 
     async function postPost(){

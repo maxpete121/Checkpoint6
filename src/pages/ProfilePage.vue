@@ -47,7 +47,7 @@
             <h3>Recent Posts</h3>
         </div>
     </section>
-    <section class="row justify-content-center">
+    <section v-if="page > 1" class="row justify-content-center">
         <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
             <span>
               <button @click="pageChangeDown(profile.id)" class="btn btn-outline-dark shadow">
@@ -89,8 +89,8 @@ import { postService } from '../services/PostService';
         const post = computed(()=> AppState.posts)
         const account = computed(()=> AppState.account)
         onMounted(()=>{
+            AppState.currentPage = 1
             getProfileById()
-            page.value = 1
         })
         const route = useRoute();
         async function getProfileById(){
