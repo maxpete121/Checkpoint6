@@ -1,7 +1,7 @@
 <template>
-    <div class="post-card">
+    <div class="post-card mt-3">
         <div class="d-flex align-items-center">
-            <h3>{{ profile.name }}</h3>
+            <h3 class="me-2">{{ profile.name }}</h3>
             <router-link :to="{ name: 'Profile', params: { profileId: profile.id } }">
                 <img class="profile-pic rounded-circle" :src="profile.picture" alt="">
             </router-link>

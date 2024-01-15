@@ -1,5 +1,8 @@
 <template>
   <section class="container-fluid section-main">
+    <div class="ad">
+      <PluginCard/>
+    </div>
       <SearchBar v-if="accountVal.id"/>
     <div class="row justify-content-center">
       <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
@@ -35,7 +38,7 @@
           <form @submit.prevent="postPost()" class="text-center" action="">
             <div class="d-flex flex-column">
               <span class="mb-2">
-                <label for="">Image Link</label>
+                <label class="me-2" for="">Image Link</label>
                 <input v-model="postData.imgUrl" type="text">
               </span>
               <span>
@@ -63,6 +66,8 @@ import SearchBar from '../components/SearchBar.vue';
 import ProfileCard from '../components/ProfileCard.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import { AppState } from '../AppState';
+import { adsService } from '../services/AdsService';
+import PluginCard from '../components/PluginCard.vue';
 export default {
   setup() {
     const postData = ref({})
@@ -98,6 +103,7 @@ export default {
 
     async function getPosts(){
       await postService.getPosts(page.value)
+      await adsService.getAds()
     }
 
     async function postPost(){
@@ -105,17 +111,20 @@ export default {
       await postService.checkPosts(AppState.account.id, post.value)
     }
 
+
+
     return {
       posts: computed(()=> AppState.posts),
       accountVal: computed(()=> AppState.account),
       profiles: computed(()=> AppState.searchedProfile),
+      ads: computed(()=> AppState.ads),
       postData,
       postPost,
       page,
       pageChangeUp,
       pageChangeDown,
     }
-  }, components: {PostCard, SearchBar, ProfileCard}
+  }, components: {PostCard, SearchBar, ProfileCard, PluginCard}
 }
 </script>
 
@@ -159,5 +168,10 @@ export default {
 .page-card{
   background-color: white;
   border-radius: 15px;
+}
+
+.ad{
+  position: absolute;
+  margin-top: 30px;
 }
 </style>

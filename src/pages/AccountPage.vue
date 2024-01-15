@@ -13,6 +13,23 @@
         <div class="row justify-content-center">
           <div class="col-2">
             <span class="d-flex justify-content-center">
+              <h4>Class:</h4>
+            </span>
+            <input v-model="profileUpdate.class" class="form-control" maxlength="20" type="text">
+          </div>
+          <div class="col-2">
+            <span>
+              <h4>Graduated</h4>
+            </span>
+            <select required class="form-control" v-model="profileUpdate.graduated" name="" id="">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-2">
+            <span class="d-flex justify-content-center">
               <h4 class="me-2">Name:</h4>
             </span>
             <input v-model="profileUpdate.name" required  class="form-control" type="text">
@@ -51,7 +68,7 @@
             <span class="text-center">
               <h4>Bio</h4>
             </span>
-            <textarea name="" id="" cols="60" rows="7"></textarea>
+            <textarea v-model="profileUpdate.bio" name="" id="" cols="60" rows="7"></textarea>
           </div>
         </div>
         <div class="row justify-content-center">

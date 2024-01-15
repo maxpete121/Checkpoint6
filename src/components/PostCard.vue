@@ -1,5 +1,12 @@
 <template>
     <div class="post-card">
+        <div class="d-flex">
+            <p class="me-2">Posted on:</p>
+            <p class="me-4">{{ date }}</p>
+            <p class="me-2">At:</p>
+            <p>{{ time }}</p>
+            <p class="">PM</p>
+        </div>
         <div class="d-flex align-items-center mb-2 justify-content-center">
             <h4 class="me-3">{{ post.creator.name }}</h4>
             <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
@@ -23,13 +30,6 @@
                 <button v-if="accountId.id" class="btn btn-outline-dark me-3">Comment</button>
                 <button @click="deletePost(post.id)" v-if="accountId.id == post.creatorId" class="btn btn-outline-dark">Delete</button>
             </span>
-        </div>
-        <div class="d-flex">
-            <p class="me-2">Posted on:</p>
-            <p class="me-4">{{ date }}</p>
-            <p class="me-2">At:</p>
-            <p>{{ time }}</p>
-            <p class="">PM</p>
         </div>
     </div>
   </template>

@@ -20,7 +20,7 @@ class PostService{
         for(let i = 0; allPosts.length > i; i++){
             let post = allPosts[i].likeIds
             for(let x = 0; post.length > x; x++){
-                if(AppState.posts[i].likeIds[x] == accountId){
+                if(allPosts[i].likeIds[x] == accountId){
                     allPosts[i].liked = true
                 }else{
                     allPosts[i].liked = false
