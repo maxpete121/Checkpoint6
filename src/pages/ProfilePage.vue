@@ -64,7 +64,11 @@
               <h3>{{ page }}</h3>
             </span>
             <span>
-              <button @click="pageChangeUp(profile.id)" class="btn btn-outline-dark shadow">
+              <button v-if="page < totalPage" @click="pageChangeUp(profile.id)" class="btn btn-outline-dark shadow">
+                Older Posts
+                <i class="mdi mdi-arrow-right"></i>
+              </button>
+              <button v-if="page == totalPage" disabled class="btn btn-outline-dark shadow">
                 Older Posts
                 <i class="mdi mdi-arrow-right"></i>
               </button>

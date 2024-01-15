@@ -11,7 +11,7 @@ class PostService{
     async getPosts(page){
         let response = await api.get(`api/posts?page=${page}`)
         let allPosts = response.data.posts.map(post => new Post(post))
-        console.log(allPosts)
+        // console.log(allPosts)
         AppState.posts = allPosts
         AppState.totalPages = response.data.totalPages
     }

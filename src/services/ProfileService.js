@@ -21,7 +21,7 @@ class ProfileService{
         let profilePosts = await response.data.posts.map(post => new Post(post))
         AppState.profilePosts = profilePosts
         AppState.totalPages = response.data.totalPages
-        console.log(response)
+        // console.log(response)
     }
 
     async searchProfilePost(searched){

@@ -23,10 +23,14 @@
           <h3>{{ totalPage }}</h3>
         </span>
         <span>
-          <button @click="pageChangeUp()" class="btn btn-outline-dark shadow">
+          <button v-if="page < totalPage" @click="pageChangeUp()" class="btn btn-outline-dark shadow">
             Older Posts
             <i class="mdi mdi-arrow-right"></i>
           </button>
+          <button v-if="page == totalPage" disabled class="btn btn-outline-dark shadow">
+                Older Posts
+                <i class="mdi mdi-arrow-right"></i>
+              </button>
         </span>
       </div>
     </div>
@@ -81,6 +85,7 @@ export default {
     const page = computed(()=> AppState.currentPage)
     const post = computed(()=> AppState.posts)
     const account = computed(()=> AppState.account)
+    const totalPage = computed(()=> AppState.totalPages)
     onMounted(() => {
       AppState.currentPage = 1
       clearActive()
@@ -134,6 +139,7 @@ export default {
       postData,
       postPost,
       page,
+      totalPage,
       pageChangeUp,
       pageChangeDown,
     }
