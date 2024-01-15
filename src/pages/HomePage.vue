@@ -7,7 +7,11 @@
     <div class="row justify-content-center">
       <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
         <span>
-          <button @click="pageChangeDown()" class="btn btn-outline-dark shadow">
+          <button v-if="page > 1" @click="pageChangeDown()" class="btn btn-outline-dark shadow">
+            <i class="mdi mdi-arrow-left"></i>
+            Newer Posts
+          </button>
+          <button v-if="page == 1" disabled class="btn btn-outline-dark shadow">
             <i class="mdi mdi-arrow-left"></i>
             Newer Posts
           </button>

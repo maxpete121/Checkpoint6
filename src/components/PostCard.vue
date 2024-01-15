@@ -5,7 +5,7 @@
             <p class="me-4">{{ date }}</p>
             <p class="me-2">At:</p>
             <p>{{ time }}</p>
-            <p class="">PM</p>
+            <p class="">{{ pmAm }}</p>
         </div>
         <div class="d-flex align-items-center mb-2 justify-content-center">
             <h4 class="me-3">{{ post.creator.name }}</h4>
@@ -49,6 +49,7 @@ import { postService } from '../services/PostService'
         let date = postDate.createdAt.toLocaleDateString()
         let hours = postDate.createdAt.toLocaleTimeString()
         let time = hours.slice(0,4)
+        let pmAm = hours.slice(8,10)
         async function deletePost(postId){
             await postService.deletePost(postId)
         }
@@ -60,7 +61,8 @@ import { postService } from '../services/PostService'
         deletePost,
         likePost,
         date,
-        time
+        time,
+        pmAm
       }
     }, components: {RouterLink}
   }

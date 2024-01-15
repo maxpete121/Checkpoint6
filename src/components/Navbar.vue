@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-3">
-    <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
+    <router-link @click="checkPosts()" class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <h2><i class="mdi mdi-desktop-tower-monitor me-1 text-success"></i>Dev Space</h2>
       </div>
@@ -29,16 +29,21 @@ import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 import { AppState } from '../AppState';
+import { postService } from '../services/PostService';
 export default {
   setup() {
-
+    const allPosts = computed(()=> AppState.posts)
     const theme = ref(loadState('theme') || 'light')
     onMounted(() => {
       document.documentElement.setAttribute('data-bs-theme', theme.value)
     })
-
+    async function checkPosts(){
+      setTimeout(function(){postService.checkPosts(AppState.account.id, allPosts.value)}, 500)
+      await postService.checkPosts(AppState.account.id, allPosts.value)
+    }
     return {
       theme,
+      checkPosts,
       toggleTheme() {
         theme.value = theme.value == 'light' ? 'dark' : 'light'
         document.documentElement.setAttribute('data-bs-theme', theme.value)

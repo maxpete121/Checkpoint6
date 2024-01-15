@@ -47,10 +47,14 @@
             <h3>Recent Posts</h3>
         </div>
     </section>
-    <section v-if="page > 1" class="row justify-content-center">
+    <section v-if="totalPage > 1" class="row justify-content-center">
         <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
             <span>
-              <button @click="pageChangeDown(profile.id)" class="btn btn-outline-dark shadow">
+              <button v-if="page > 1" @click="pageChangeDown(profile.id)" class="btn btn-outline-dark shadow">
+                <i class="mdi mdi-arrow-left"></i>
+                Newer Posts
+              </button>
+              <button v-if="page == 1" disabled class="btn btn-outline-dark shadow">
                 <i class="mdi mdi-arrow-left"></i>
                 Newer Posts
               </button>
@@ -88,6 +92,7 @@ import { postService } from '../services/PostService';
         const page = computed(()=> AppState.currentPage)
         const post = computed(()=> AppState.posts)
         const account = computed(()=> AppState.account)
+        const totalPage = computed(()=> AppState.totalPages)
         onMounted(()=>{
             AppState.currentPage = 1
             getProfileById()
@@ -128,7 +133,8 @@ import { postService } from '../services/PostService';
         posts: computed(()=> AppState.profilePosts),
         ads: computed(()=> AppState.ads),
         pageChangeUp,
-        pageChangeDown
+        pageChangeDown,
+        totalPage
       }
     }, components: {PostCard, PluginCardTwo}
   }
