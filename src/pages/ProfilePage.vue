@@ -47,6 +47,26 @@
             <h3>Recent Posts</h3>
         </div>
     </section>
+    <section class="row justify-content-center">
+        <div class="col-4 justify-content-center mt-3 d-flex page-card pt-2 pb-1">
+            <span>
+              <button @click="pageChangeDown(profile.id)" class="btn btn-outline-dark shadow">
+                <i class="mdi mdi-arrow-left"></i>
+                Newer Posts
+              </button>
+            </span>
+            <span class="d-flex ms-3 me-3">
+              <h3>Page:</h3>
+              <h3>{{ page }}</h3>
+            </span>
+            <span>
+              <button @click="pageChangeUp(profile.id)" class="btn btn-outline-dark shadow">
+                Older Posts
+                <i class="mdi mdi-arrow-right"></i>
+              </button>
+            </span>
+          </div>
+    </section>
     <section class="row p-3">
         <div class="mt-4 col-4" v-for="post in posts">
           <PostCard :post="post"/>
@@ -61,12 +81,16 @@
   import { useRoute } from 'vue-router';
   import PostCard from '../components/PostCard.vue';
 import { adsService } from '../services/AdsService';
-import PluginCardTwo from '../components/PluginCardTwo.vue'
+import PluginCardTwo from '../components/PluginCardTwo.vue';
+import { postService } from '../services/PostService';
   export default {
     setup() {
-
+        const page = computed(()=> AppState.currentPage)
+        const post = computed(()=> AppState.posts)
+        const account = computed(()=> AppState.account)
         onMounted(()=>{
             getProfileById()
+            page.value = 1
         })
         const route = useRoute();
         async function getProfileById(){
@@ -77,13 +101,34 @@ import PluginCardTwo from '../components/PluginCardTwo.vue'
 
         async function getPostsById(profileId){
             await adsService.getAds()
-            await profileService.getPostsById(profileId)
+            await profileService.getPostsById(profileId, page.value)
         }
 
+        async function pageChangeUp(profileId){
+      await AppState.currentPage++
+      await getPostsById(profileId)
+      if(account.value.id){
+        await postService.checkPosts(AppState.account.id, post.value)
+      }
+    }
+
+    async function pageChangeDown(profileId){
+      if(AppState.currentPage > 1){
+        await AppState.currentPage--
+        await getPostsById(profileId)
+        if(account.value.id){
+        await postService.checkPosts(AppState.account.id, post.value)
+      }
+      }
+    }
+
       return {
+        page,
         profile: computed(()=> AppState.activeProfile),
         posts: computed(()=> AppState.profilePosts),
         ads: computed(()=> AppState.ads),
+        pageChangeUp,
+        pageChangeDown
       }
     }, components: {PostCard, PluginCardTwo}
   }

@@ -1,9 +1,9 @@
 <template>
     <div class="row justify-content-center">
         <form @submit.prevent="searchPost()" class="col-4 mt-2 text-center p-3 rounded-3" action="">
-                <h5>Search Posts</h5>
+                <h5 class="text-light">Search Posts</h5>
                 <span class="d-flex justify-content-center mb-1">
-                    <h6 class="me-2">Filter</h6>
+                    <h6 class="me-2 text-light">Filter</h6>
                     <select v-model="filter" required name="" id="">
                         <option value="Post">Post</option>
                         <option value="Profile">Profile</option>
@@ -11,7 +11,7 @@
                 </span>
                 <span class="d-flex">
                     <input v-model="searched" required maxlength="60" class="form-control" type="text">
-                    <button class="ms-1 btn btn-outline-dark">Search</button>
+                    <button class="ms-1 btn btn-outline-light">Search</button>
                 </span>
         </form>
     </div>
@@ -28,7 +28,7 @@ import {profileService} from '../services/ProfileService'
     setup() {
       const posts = computed(()=> AppState.posts)
       onMounted(()=>{
-        console.log(AppState.account)
+        // console.log(AppState.account)
         checkPosts()
       })
         const searched = ref('')

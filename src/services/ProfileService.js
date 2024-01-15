@@ -13,18 +13,20 @@ class ProfileService{
         let response = await api.get(`api/profiles/${profileId}`)
         const newProfile = await new Profile(response.data)
         AppState.activeProfile = newProfile
-        console.log(newProfile, 'profile')
+        // console.log(newProfile, 'profile')
     }
 
-    async getPostsById(profileId){
-        let response = await api.get(`api/profiles/${profileId}/posts`)
+    async getPostsById(profileId, page){
+        let response = await api.get(`api/profiles/${profileId}/posts?page=${page}`)
         let profilePosts = await response.data.posts.map(post => new Post(post))
         AppState.profilePosts = profilePosts
+        AppState.totalPages = response.data.totalPages
+        console.log(response)
     }
 
     async searchProfilePost(searched){
         let response = await api.get(`api/profiles?query=${searched}`)
-        console.log('profiles',response)
+        // console.log('profiles',response)
         let profiles = response.data.map(profile => new Profile(profile))
         AppState.searchedProfile = profiles
         let empty = []
@@ -33,7 +35,7 @@ class ProfileService{
 
     async updateProfile(profileData){
         let response = await api.put('/account', profileData)
-        console.log(response)
+        // console.log(response)
         let newAccount = new Account(response.data)
         AppState.account = newAccount
     }

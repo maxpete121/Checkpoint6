@@ -13,6 +13,7 @@ class PostService{
         let allPosts = response.data.posts.map(post => new Post(post))
         console.log(allPosts)
         AppState.posts = allPosts
+        AppState.totalPages = response.data.totalPages
     }
     
     async checkPosts(accountId, allPosts){
@@ -53,14 +54,14 @@ class PostService{
         let response = await api.post(`api/posts/${postId}/like`)
         let newPost = await new Post(response.data)
         for(let i = 0; newPost.likeIds.length > i; i++){
-            console.log(i)
+            // console.log(i)
             if(newPost.likeIds[i] == accountId){
                 newPost.liked = true
             }else{
                 newPost.liked = false
             }
         }
-        console.log(newPost)
+        // console.log(newPost)
         this.update(postId, newPost)
     }
     

@@ -13,8 +13,10 @@
           </button>
         </span>
         <span class="d-flex ms-3 me-3">
-          <h3>Page:</h3>
-          <h3>{{ page }}</h3>
+          <h3 class="me-2">Page:</h3>
+          <h3 class="">{{ page }}</h3>
+          <h3>/</h3>
+          <h3>{{ totalPage }}</h3>
         </span>
         <span>
           <button @click="pageChangeUp()" class="btn btn-outline-dark shadow">
@@ -118,6 +120,7 @@ export default {
       accountVal: computed(()=> AppState.account),
       profiles: computed(()=> AppState.searchedProfile),
       ads: computed(()=> AppState.ads),
+      totalPage: computed(()=> AppState.totalPages),
       postData,
       postPost,
       page,
@@ -131,7 +134,7 @@ export default {
 <style scoped lang="scss">
 
 .section-main{
-  background-color: white;
+  background-image: linear-gradient(to bottom right, black, white);
 }
 .home {
   display: grid;
@@ -154,12 +157,21 @@ export default {
 }
 
 .post-card{
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.945);
     color: black;
     border-radius: 20px;
     padding: 15px;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.267);
-    outline: thin black solid;
+    outline: thin black 9px;
+}
+.post-card:hover{
+  background-color: rgb(255, 255, 255);
+    color: black;
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.267);
+    outline: thin black 9px;
+    transform: scale(1.02);
 }
 .profile-pic{
     height: 50px;
