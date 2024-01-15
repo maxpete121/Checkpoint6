@@ -18,8 +18,8 @@
             <input v-model="profileUpdate.class" class="form-control" maxlength="20" type="text">
           </div>
           <div class="col-2">
-            <span>
-              <h4>Graduated</h4>
+            <span class="text-center">
+              <h4>Graduated:</h4>
             </span>
             <select required class="form-control" v-model="profileUpdate.graduated" name="" id="">
               <option value="false">No</option>
@@ -80,7 +80,7 @@
         </div>
       </form>
       <section class="row justify-content-center mt-2">
-            <div v-for="ad in ads" class="col-6 d-flex">
+            <div v-for="ad in ads" class="col-2 d-flex">
           <PluginCardTwo :ad="ad"/>
         </div>
         </section>

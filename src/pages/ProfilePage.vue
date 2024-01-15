@@ -1,11 +1,4 @@
 <template>
-
-        <section class="row justify-content-between mt-2">
-            <div v-for="ad in ads" class="col-5 d-flex">
-          <PluginCardTwo :ad="ad"/>
-        </div>
-        </section>
-
     <section class="row justify-content-center">
         <div class="col-4 text-center m-3">
             <span>
@@ -43,6 +36,12 @@
         </div>
   
     </section>
+    <section class="d-flex justify-content-center mt-2">
+        <div v-for="ad in ads" class="col-2 d-flex ms-2">
+      <PluginCardTwo :ad="ad"/>
+    </div>
+    </section>
+    
     <section class="row justify-content-center mt-3">
         <div class="col-3 text-center">
             <h3>Recent Posts</h3>

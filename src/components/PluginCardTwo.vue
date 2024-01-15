@@ -1,6 +1,6 @@
 <template>
-    <div class="card text-center">
-      <img class="ad" :src="ad.square" alt="">
+    <div class="card text-center p-1">
+      <img class="img-fluid rounded-2" :src="ad.square" alt="">
       <h4>{{ ad.title }}</h4>
       <a :href="ad.linkURL">Great Deals</a>
     </div>
@@ -22,7 +22,5 @@
   </script>
     
   <style scoped>
-    .ad{
-    height: 300px;
-  }
+
   </style>
