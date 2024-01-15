@@ -1,7 +1,7 @@
 <template>
   <section class="container-fluid section-main">
-    <div class="ad">
-      <PluginCard/>
+    <div v-for="ad in ads" class="ad">
+      <PluginCard :ad="ad"/>
     </div>
       <SearchBar v-if="accountVal.id"/>
     <div class="row justify-content-center">
