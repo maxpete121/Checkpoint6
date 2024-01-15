@@ -1,4 +1,11 @@
 <template>
+
+        <section class="row justify-content-between mt-2">
+            <div v-for="ad in ads" class="col-5 d-flex">
+          <PluginCardTwo :ad="ad"/>
+        </div>
+        </section>
+
     <section class="row justify-content-center">
         <div class="col-4 text-center m-3">
             <span>
@@ -54,8 +61,11 @@
   import {profileService} from '../services/ProfileService'
   import { useRoute } from 'vue-router';
   import PostCard from '../components/PostCard.vue';
+import { adsService } from '../services/AdsService';
+import PluginCardTwo from '../components/PluginCardTwo.vue'
   export default {
     setup() {
+
         onMounted(()=>{
             getProfileById()
         })
@@ -67,13 +77,16 @@
         }
 
         async function getPostsById(profileId){
+            await adsService.getAds()
             await profileService.getPostsById(profileId)
         }
+
       return {
         profile: computed(()=> AppState.activeProfile),
-        posts: computed(()=> AppState.profilePosts)
+        posts: computed(()=> AppState.profilePosts),
+        ads: computed(()=> AppState.ads),
       }
-    }, components: {PostCard}
+    }, components: {PostCard, PluginCardTwo}
   }
   </script>
   
@@ -86,4 +99,6 @@
     max-height: 450px;
     max-width: 550px;
   }
+
+
   </style>

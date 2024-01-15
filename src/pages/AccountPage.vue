@@ -79,16 +79,26 @@
           </div>
         </div>
       </form>
+      <section class="row justify-content-center mt-2">
+            <div v-for="ad in ads" class="col-6 d-flex">
+          <PluginCardTwo :ad="ad"/>
+        </div>
+        </section>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState';
 import { profileService } from '../services/ProfileService';
+import PluginCardTwo from '../components/PluginCardTwo.vue';
+import { adsService } from '../services/AdsService';
 export default {
   setup() {
+    onMounted(()=>{
+      adsService.getAds()
+    })
     const profileUpdate = ref({
       name: AppState.account.name, 
       github: AppState.activeProfile.github,
@@ -101,10 +111,11 @@ export default {
     return {
       account: computed(() => AppState.account),
       profile: computed(()=> AppState.activeProfile),
+      ads: computed(()=> AppState.ads),
       profileUpdate,
       updateProfile
     }
-  }
+  }, components: {PluginCardTwo}
 }
 </script>
 
